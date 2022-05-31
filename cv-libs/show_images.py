@@ -3,7 +3,7 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 
 
-def show_images(images, n_rows=1, size=5):
+def show_images(images, n_rows=1, size=5, show_ticks=False):
     """
     Showing Images using Matplotlib
     -----------------------------------
@@ -44,8 +44,11 @@ def show_images(images, n_rows=1, size=5):
                 ax.imshow(cv.cvtColor(images[i][0], conversion))
             else:
                 ax.imshow(images[i][0], cmap='gray', vmin=v_min, vmax=v_max)
-            ax.set_xticks([])
-            ax.set_yticks([])
+            if not show_ticks:
+                ax.set_xticks([])
+                ax.set_yticks([])
+            else:
+                ax.axis('off')
             if title:
                 ax.set_title(images[i][2], color='blue', fontsize=14)
 
@@ -55,21 +58,30 @@ def show_images(images, n_rows=1, size=5):
                 ax[i].imshow(cv.cvtColor(images[i][0], conversion))
             else:
                 ax[i].imshow(images[i][0], cmap='gray', vmin=v_min, vmax=v_max)
-            ax[i].set_xticks([])
-            ax[i].set_yticks([])
+            if not show_ticks:
+                ax[i].set_xticks([])
+                ax[i].set_yticks([])
+            else:
+                ax[i].axis('off')
             if title:
                 ax[i].set_title(images[i][2], color='blue', fontsize=14)
 
         # Displaying Images in Multiple Row
         else:
             if color_im:
-                ax[i // n_cols][i % n_cols].imshow(cv.cvtColor(images[i][0], conversion))
+                ax[i // n_cols][i %
+                                n_cols].imshow(cv.cvtColor(images[i][0], conversion))
             else:
-                ax[i // n_cols][i % n_cols].imshow(images[i][0], cmap='gray', vmin=v_min, vmax=v_max)
-            ax[i // n_cols][i % n_cols].set_xticks([])
-            ax[i // n_cols][i % n_cols].set_yticks([])
+                ax[i // n_cols][i %
+                                n_cols].imshow(images[i][0], cmap='gray', vmin=v_min, vmax=v_max)
+            if not show_ticks:
+                ax[i // n_cols][i % n_cols].set_xticks([])
+                ax[i // n_cols][i % n_cols].set_yticks([])
+            else:
+                ax[i // n_cols][i % n_cols].axis('off')
             if title:
-                ax[i // n_cols][i % n_cols].set_title(images[i][2], color='blue', fontsize=14)
+                ax[i // n_cols][i %
+                                n_cols].set_title(images[i][2], color='blue', fontsize=14)
 
     plt.show()
     return
